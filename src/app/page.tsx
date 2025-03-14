@@ -8,6 +8,7 @@ import WorkSection from '@/components/WorkSection';
 import AboutSection from '@/components/AboutSection';
 import Preloader from '@/components/Preloader';
 import ScrollToTop from '@/components/ScrollToTop';
+import LocationBadge from '@/components/LocationBadge';
 
 // Dynamically import components that should not be server-side rendered
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
@@ -38,6 +39,7 @@ export default function Home() {
       <HeroSection />
       <WorkSection />
       <AboutSection />
+      <LocationBadge />
       <ScrollToTop />
       <CustomCursor />
     </main>

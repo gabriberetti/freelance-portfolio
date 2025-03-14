@@ -93,13 +93,13 @@ const TorusBackground = () => {
         
         {/* Multiple tori with different parameters for a more complex look */}
         <Torus 
-          color="#1F01B9" 
+          color="#000000" 
           thickness={10} 
           tube={3} 
           speed={0.05}
         />
         <Torus 
-          color="#1F01B9" 
+          color="#000000" 
           position={[0, 0, -5] as [number, number, number]} 
           scale={1.2} 
           thickness={8} 
@@ -107,7 +107,7 @@ const TorusBackground = () => {
           speed={0.08}
         />
         <Torus 
-          color="#1F01B9" 
+          color="#000000" 
           position={[0, 0, 5] as [number, number, number]} 
           scale={0.8} 
           thickness={12} 
