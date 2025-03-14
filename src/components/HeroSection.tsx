@@ -31,6 +31,7 @@ const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subheadingRef = useRef<HTMLParagraphElement>(null);
+  const messageRef = useRef<HTMLParagraphElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const nameContainerRef = useRef<HTMLDivElement>(null);
@@ -39,7 +40,22 @@ const HeroSection = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
     
-    // Remove the heading and subheading animations since we're removing those elements
+    let messageAnim: gsap.core.Tween | null = null;
+    
+    // Animate the message
+    if (messageRef.current) {
+      messageAnim = gsap.fromTo(
+        messageRef.current,
+        { y: 30, opacity: 0 },
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 1, 
+          delay: 0.5, 
+          ease: 'power2.out' 
+        }
+      );
+    }
 
     // Parallax effect on scroll
     if (parallaxRef.current) {
@@ -56,9 +72,14 @@ const HeroSection = () => {
       window.addEventListener('scroll', handleScroll);
       
       return () => {
+        if (messageAnim) messageAnim.kill();
         window.removeEventListener('scroll', handleScroll);
       };
     }
+    
+    return () => {
+      if (messageAnim) messageAnim.kill();
+    };
   }, []);
 
   // Enhanced name scrolling animation
@@ -122,10 +143,23 @@ const HeroSection = () => {
     <section 
       id="home" 
       ref={sectionRef}
-      className="flex flex-col items-start justify-start min-h-screen bg-transparent text-primary px-6 overflow-hidden relative"
+      className="flex flex-col items-center justify-center min-h-screen bg-transparent text-primary px-6 overflow-hidden relative"
     >
       {/* Gradient background overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-transparent z-10 pointer-events-none"></div>
+      
+      {/* Message */}
+      <div className="relative z-20 max-w-4xl mx-auto text-center w-full -mt-32 md:-mt-24">
+        <h1 
+          ref={messageRef}
+          className="text-3xl md:text-5xl lg:text-6xl font-light leading-tight text-white mb-6"
+        >
+          Crafting Tailor-Made Solutions
+        </h1>
+        <p className="text-lg md:text-xl lg:text-2xl font-light text-white max-w-2xl mx-auto leading-relaxed">
+          Helping companies worldwide achieve excellence through quality-focused design and development.
+        </p>
+      </div>
       
       {/* Parallax background elements */}
       <div 
@@ -146,7 +180,7 @@ const HeroSection = () => {
         <div className="marquee-container py-10 overflow-hidden w-full">
           <h2 
             ref={nameRef}
-            className="text-[12vw] font-bold text-[#1F01B9] whitespace-nowrap leading-[1.2] will-change-transform inline-block"
+            className="text-[12vw] font-normal text-[#1F01B9] whitespace-nowrap leading-[1.2] will-change-transform inline-block"
             style={{ 
               transform: 'scaleY(1.1)', 
               paddingBottom: '0.2em',
