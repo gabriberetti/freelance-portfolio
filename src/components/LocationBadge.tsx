@@ -10,7 +10,7 @@ const LocationBadge = () => {
 
   return (
     <div 
-      className="absolute left-0 top-32 z-50"
+      className="absolute left-0 top-32 z-20"
       onMouseEnter={() => handleHover(true)}
       onMouseLeave={() => handleHover(false)}
     >
