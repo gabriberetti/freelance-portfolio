@@ -167,8 +167,8 @@ const HeroSection = () => {
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-accent/10 blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-accent/5 blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#1F01B9]/10 blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-[#1F01B9]/5 blur-3xl"></div>
       </div>
 
       {/* Large name at the bottom with GSAP-controlled animation */}
