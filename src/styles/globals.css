@@ -1,0 +1,97 @@
+@import '../assets/fonts/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'SuisseIntl', sans-serif;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-feature-settings: "salt";
+}
+
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+  padding-top: 80px; /* Account for fixed header */
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  /* Remove transition for immediate positioning */
+  will-change: transform;
+}
+
+.cursor-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.cursor-outline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  /* Faster transition for hover effects */
+  transition: transform 0.15s ease;
+}
+
+/* Hover state for interactive elements */
+a:hover, button:hover, [role="button"]:hover {
+  cursor: none;
+}
+
+a:hover ~ .custom-cursor .cursor-outline,
+button:hover ~ .custom-cursor .cursor-outline,
+[role="button"]:hover ~ .custom-cursor .cursor-outline {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Hide default cursor when custom cursor is enabled */
+html.custom-cursor-enabled {
+  cursor: none;
+}
+
+/* Hide default cursor when custom cursor is enabled */
+html.custom-cursor-enabled * {
+  cursor: none !important;
+}
+
+@media (max-width: 768px) {
+  /* Mobile-specific styles */
+} 

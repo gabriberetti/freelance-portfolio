@@ -1,0 +1,35 @@
+{
+  "name": "freelance-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.0.4",
+    "@react-three/fiber": "^9.1.0",
+    "gsap": "^3.12.7",
+    "next": "^15.2.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.174.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^9.22.0",
+    "eslint-config-next": "^15.2.2",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.8.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "A modern portfolio website inspired by dennissnellenberg.com"
+}

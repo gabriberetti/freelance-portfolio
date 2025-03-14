@@ -1,0 +1,34 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+
+Here are the documentation links as a list:
+
+1. [CSS Scroll Snap Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap)
+2. [GSAP ScrollTrigger Documentation](https://greensock.com/docs/v3/Plugins/ScrollTrigger)
+3. [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
+4. [CSS Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout)
+5. [CSS Position Sticky](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
+6. [CSS clamp() Function](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp)
+7. [Google Fonts - Suisse Int’l](https://fonts.google.com/)
+8. [Suisse Int’l Font](https://www.myfonts.com/fonts/suisse-intl/)
+9. [CSS Units](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
+10. [GSAP Documentation](https://greensock.com/docs/)
+11. [GSAP SplitText Documentation](https://greensock.com/docs/v3/Plugins/SplitText)
+12. [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+13. [Custom Cursor Effects](https://css-tricks.com/pointer-events-css/)
+14. [CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)
+15. [JavaScript Date Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+16. [Lazy Loading Images](https://developer.mozilla.org/en-US/docs/Web/Performance/lazy_loading)
+17. [WebP Format](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types#webp)
+18. [HTML5 Accessibility Features](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
+19. [SEO Best Practices](https://developers.google.com/search/docs/beginner/seo-starter-guide)
+20. [GSAP Performance Tips](https://greensock.com/performance/)
+21. [Next.js Documentation](https://nextjs.org/docs)
+22. [React.js Documentation](https://reactjs.org/docs/getting-started.html)
+23. [Styled-components Documentation](https://styled-components.com/docs)
+24. [Tailwind CSS Documentation](https://tailwindcss.com/docs)
