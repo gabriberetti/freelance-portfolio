@@ -141,7 +141,7 @@ const WorkSection = () => {
     <section 
       id="work" 
       ref={sectionRef}
-      className="pt-32 pb-20 px-6 md:px-12 relative bg-secondary"
+      className="pt-16 md:pt-32 pb-20 px-6 md:px-12 relative bg-secondary"
       onMouseMove={handleMouseMove}
     >
       {/* Cursor preview */}
