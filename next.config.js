@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   
   // Image optimization settings
   images: {
@@ -115,9 +114,9 @@ const nextConfig = {
     return config;
   },
   
-  // Experimental features
+  // Experimental features - updated for Next.js 15 compatibility
   experimental: {
-    optimizeCss: true,
+    // Removed optimizeCss as it might not be supported in Next.js 15
     scrollRestoration: true,
   },
   
