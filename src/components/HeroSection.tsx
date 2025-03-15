@@ -205,7 +205,7 @@ const HeroSection = () => {
         <div className="marquee-container py-2 md:py-10 overflow-hidden w-full">
           <h2 
             ref={nameRef}
-            className="text-[10vw] md:text-[12vw] font-normal text-[#1F01B9] whitespace-nowrap leading-[1.2] will-change-transform inline-block"
+            className="text-[12vw] md:text-[12vw] font-normal text-[#1F01B9] whitespace-nowrap leading-[1.2] will-change-transform inline-block"
             style={{ 
               transform: 'scaleY(1.1)', 
               paddingBottom: '0.2em',
