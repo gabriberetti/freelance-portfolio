@@ -55,29 +55,62 @@ const Torus = ({
 // Camera controller to set initial position and handle responsive adjustments
 const CameraController = () => {
   const { camera, size } = useThree();
+  const initialPositionRef = useRef([0, 0, 30]);
   
   useEffect(() => {
     // Set initial camera position based on screen size
     if (size.width < 768) {
-      camera.position.set(0, 0, 40); // Further back on mobile
+      initialPositionRef.current = [0, 0, 40]; // Further back on mobile
     } else {
-      camera.position.set(0, 0, 30);
+      initialPositionRef.current = [0, 0, 30];
     }
+    
+    camera.position.set(
+      initialPositionRef.current[0],
+      initialPositionRef.current[1],
+      initialPositionRef.current[2]
+    );
     
     // Handle window resize
     const handleResize = () => {
       // Adjust camera based on screen size
       if (size.width < 768) {
-        camera.position.z = 40; // Move camera back on smaller screens
+        initialPositionRef.current = [0, 0, 40];
       } else {
-        camera.position.z = 30;
+        initialPositionRef.current = [0, 0, 30];
+      }
+      
+      camera.position.set(
+        initialPositionRef.current[0],
+        initialPositionRef.current[1],
+        initialPositionRef.current[2]
+      );
+    };
+    
+    // Handle scroll to maintain fixed camera position
+    const handleScroll = () => {
+      if (size.width < 768) {
+        // Reset camera position if it has changed
+        if (
+          camera.position.z !== initialPositionRef.current[2] ||
+          camera.position.x !== initialPositionRef.current[0] ||
+          camera.position.y !== initialPositionRef.current[1]
+        ) {
+          camera.position.set(
+            initialPositionRef.current[0],
+            initialPositionRef.current[1],
+            initialPositionRef.current[2]
+          );
+        }
       }
     };
     
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [camera, size]);
   
@@ -112,6 +145,14 @@ const TorusBackground = () => {
         dpr={isMobile ? 1 : 2} 
         camera={{ position: [0, 0, isMobile ? 40 : 30], fov: 50 }}
         performance={{ min: 0.1 }}
+        style={{ 
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          touchAction: 'none'
+        }}
       >
         <CameraController />
         <color attach="background" args={['transparent']} />
@@ -159,6 +200,8 @@ const TorusBackground = () => {
           autoRotate={true}
           autoRotateSpeed={isMobile ? 0.15 : 0.3} // Slower rotation on mobile
           rotateSpeed={0.5}
+          minDistance={isMobile ? 40 : 30}
+          maxDistance={isMobile ? 40 : 30}
         />
       </Canvas>
     </div>

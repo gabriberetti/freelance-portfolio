@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { textReveal } from '@/lib/animations';
@@ -35,6 +35,31 @@ const HeroSection = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const nameContainerRef = useRef<HTMLDivElement>(null);
+  const [sectionHeight, setSectionHeight] = useState('100vh');
+
+  // Set section height based on device
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 640) {
+        setSectionHeight('calc(100vh - 50px)');
+      } else {
+        setSectionHeight('100vh');
+      }
+
+      const handleResize = () => {
+        if (window.innerWidth < 640) {
+          setSectionHeight('calc(100vh - 50px)');
+        } else {
+          setSectionHeight('100vh');
+        }
+      };
+
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, []);
 
   // Initial animations
   useEffect(() => {
@@ -143,7 +168,8 @@ const HeroSection = () => {
     <section 
       id="home" 
       ref={sectionRef}
-      className="flex flex-col items-center justify-center min-h-screen bg-transparent text-primary px-6 overflow-hidden relative"
+      className="flex flex-col items-center justify-center min-h-screen sm:min-h-screen bg-transparent text-primary px-6 overflow-hidden relative"
+      style={{ minHeight: sectionHeight }}
     >
       {/* Gradient background overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-transparent z-10 pointer-events-none"></div>
@@ -174,7 +200,7 @@ const HeroSection = () => {
       {/* Large name at the bottom with GSAP-controlled animation */}
       <div 
         ref={nameContainerRef}
-        className="absolute bottom-20 sm:-bottom-8 left-0 w-full overflow-hidden pointer-events-none z-40"
+        className="absolute bottom-32 sm:-bottom-8 left-0 w-full overflow-hidden pointer-events-none z-40"
       >
         <div className="marquee-container py-2 md:py-10 overflow-hidden w-full">
           <h2 

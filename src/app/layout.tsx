@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Portfolio | Creative Developer',
   description: 'A creative developer portfolio showcasing innovative web projects and design work.',
   keywords: ['portfolio', 'web developer', 'creative developer', 'frontend', 'design'],
-  viewport: 'width=device-width, initial-scale=1.0',
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
 };
 
 export default function RootLayout({
