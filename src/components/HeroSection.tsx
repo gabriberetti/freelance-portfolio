@@ -200,7 +200,7 @@ const HeroSection = () => {
       {/* Large name at the bottom with GSAP-controlled animation */}
       <div 
         ref={nameContainerRef}
-        className="absolute bottom-32 sm:-bottom-8 left-0 w-full overflow-hidden pointer-events-none z-40"
+        className="absolute bottom-8 sm:-bottom-8 left-0 w-full overflow-hidden pointer-events-none z-40"
       >
         <div className="marquee-container py-2 md:py-10 overflow-hidden w-full">
           <h2 
