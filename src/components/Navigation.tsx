@@ -30,18 +30,70 @@ const Navigation = () => {
     initSmoothScroll(80);
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      // Ensure body scroll is restored when component unmounts
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  // Clean up body overflow when component unmounts
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  // Effect to handle route changes
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+    };
+
+    window.addEventListener('hashchange', handleRouteChange);
+    return () => window.removeEventListener('hashchange', handleRouteChange);
+  }, [isMobileMenuOpen]);
+
+  // Add a useEffect to ensure proper state synchronization
+  useEffect(() => {
+    // This ensures the mobile menu state is properly synchronized with section changes
+    const handleSectionChange = () => {
+      // Update the activeSection state when hash changes
+      const hash = window.location.hash.replace('#', '') || 'home';
+      setActiveSection(hash);
+    };
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleSectionChange);
+    
+    // Initial check
+    handleSectionChange();
+    
+    return () => {
+      window.removeEventListener('hashchange', handleSectionChange);
+    };
   }, []);
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    // Prevent scrolling when mobile menu is open
-    document.body.style.overflow = isMobileMenuOpen ? 'auto' : 'hidden';
+    // Use a callback to ensure we're working with the latest state
+    setIsMobileMenuOpen(prevState => {
+      const newState = !prevState;
+      // Prevent scrolling when mobile menu is open
+      document.body.style.overflow = newState ? 'hidden' : 'auto';
+      return newState;
+    });
   };
 
   const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-    document.body.style.overflow = 'auto';
+    setIsMobileMenuOpen(prevState => {
+      if (prevState) {
+        document.body.style.overflow = 'auto';
+        return false;
+      }
+      return prevState;
+    });
   };
 
   return (
@@ -69,18 +121,24 @@ const Navigation = () => {
         >
           <div className="w-6 flex flex-col gap-1.5">
             <span 
-              className={`block h-0.5 ${isScrolled ? 'bg-primary' : 'bg-secondary'} transition-all duration-300 ${
-                isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+              className={`block h-0.5 transition-all duration-300 ${
+                isMobileMenuOpen 
+                  ? 'bg-primary rotate-45 translate-y-2' 
+                  : `${isScrolled ? 'bg-primary' : 'bg-secondary'}`
               }`}
             ></span>
             <span 
-              className={`block h-0.5 ${isScrolled ? 'bg-primary' : 'bg-secondary'} transition-all duration-300 ${
-                isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
+              className={`block h-0.5 transition-all duration-300 ${
+                isMobileMenuOpen 
+                  ? 'opacity-0 bg-primary' 
+                  : `opacity-100 ${isScrolled ? 'bg-primary' : 'bg-secondary'}`
               }`}
             ></span>
             <span 
-              className={`block h-0.5 ${isScrolled ? 'bg-primary' : 'bg-secondary'} transition-all duration-300 ${
-                isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+              className={`block h-0.5 transition-all duration-300 ${
+                isMobileMenuOpen 
+                  ? 'bg-primary -rotate-45 -translate-y-2' 
+                  : `${isScrolled ? 'bg-primary' : 'bg-secondary'}`
               }`}
             ></span>
           </div>
@@ -117,22 +175,39 @@ const Navigation = () => {
         {/* Mobile navigation */}
         <div
           id="mobile-menu"
-          className={`fixed inset-0 bg-secondary z-40 flex items-center justify-center transition-opacity duration-300 md:hidden ${
-            isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          className={`fixed inset-0 bg-secondary z-40 flex items-center justify-center transition-all duration-300 md:hidden ${
+            isMobileMenuOpen 
+              ? 'opacity-100 visible' 
+              : 'opacity-0 invisible'
           }`}
           role="dialog"
           aria-modal="true"
           aria-label="Site navigation"
         >
           <nav className="w-full max-w-sm">
-            <ul className="flex flex-col items-center space-y-10" role="menu">
-              {['Home', 'Work', 'About'].map((item) => {
+            <ul 
+              className={`flex flex-col items-center space-y-10 transition-transform duration-300 ${
+                isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+              }`} 
+              role="menu"
+            >
+              {['Home', 'Work', 'About'].map((item, index) => {
                 const lowercaseItem = item.toLowerCase();
                 return (
-                  <li key={item} role="none" className="w-full text-center">
+                  <li 
+                    key={item} 
+                    role="none" 
+                    className="w-full text-center"
+                    style={{ 
+                      transitionDelay: isMobileMenuOpen ? `${index * 100}ms` : '0ms',
+                      opacity: isMobileMenuOpen ? 1 : 0,
+                      transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
+                      transition: 'opacity 300ms ease, transform 300ms ease'
+                    }}
+                  >
                     <Link
                       href={`/#${lowercaseItem}`}
-                      className={`text-2xl uppercase tracking-wider font-light block py-2 ${
+                      className={`text-2xl uppercase tracking-wider font-light block py-2 transition-colors duration-300 ${
                         activeSection === lowercaseItem
                           ? 'text-primary'
                           : 'text-muted hover:text-primary'
