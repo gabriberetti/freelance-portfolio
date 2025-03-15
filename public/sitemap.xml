@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+        http://www.google.com/schemas/sitemap-image/1.1
+        http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://yourwebsite.com/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://yourwebsite.com/og-image.jpg</image:loc>
+      <image:title>Freelance Web Developer Portfolio</image:title>
+    </image:image>
+  </url>
+
+  <!-- Portfolio Projects -->
+  <url>
+    <loc>https://yourwebsite.com/projects</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://yourwebsite.com/about</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://yourwebsite.com/contact</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Individual Project Pages (examples) -->
+  <url>
+    <loc>https://yourwebsite.com/projects/aural</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://yourwebsite.com/aural.png</image:loc>
+      <image:title>Aural Project</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://yourwebsite.com/projects/oecus</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://yourwebsite.com/oecus.png</image:loc>
+      <image:title>Oecus Project</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://yourwebsite.com/projects/berettiaudio</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://yourwebsite.com/berettiaudio.png</image:loc>
+      <image:title>Beretti Audio Project</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://yourwebsite.com/projects/hellobody</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://yourwebsite.com/hellobody.png</image:loc>
+      <image:title>Hello Body Project</image:title>
+    </image:image>
+  </url>
+
+</urlset> 
