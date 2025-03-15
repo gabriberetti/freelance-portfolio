@@ -1,6 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 interface SEOProps {
   title?: string;
@@ -32,15 +34,27 @@ const SEO: React.FC<SEOProps> = ({
   canonicalUrl,
   noIndex = false,
 }) => {
-  const router = useRouter();
-  const currentPath = router.asPath;
+  // Use pathname instead of router.asPath
+  const pathname = usePathname();
   const siteUrl = 'https://yourwebsite.com';
   
+  // Use state to handle client-side rendering
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
   // Determine the canonical URL
-  const canonical = canonicalUrl || `${siteUrl}${currentPath === '/' ? '' : currentPath}`;
+  const canonical = canonicalUrl || `${siteUrl}${pathname === '/' ? '' : pathname}`;
   
   // Format keywords for meta tag
   const keywordsString = keywords.join(', ');
+
+  // Only render Head content after component is mounted on the client
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Head>
@@ -79,7 +93,7 @@ const SEO: React.FC<SEOProps> = ({
       )}
       
       {/* Structured Data - BreadcrumbList */}
-      {currentPath !== '/' && (
+      {pathname !== '/' && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import JsonLdSchema from '@/components/JsonLdSchema';
@@ -8,6 +8,12 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
 });
+
+// Separate viewport export as required by Next.js 15
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+};
 
 export const metadata: Metadata = {
   title: 'Freelance Web Developer | Full-Stack Developer Portfolio',
@@ -24,7 +30,6 @@ export const metadata: Metadata = {
     'Next.js and React developer',
     'Interactive website development'
   ],
-  viewport: 'width=device-width, initial-scale=1.0',
   robots: {
     index: true,
     follow: true,
