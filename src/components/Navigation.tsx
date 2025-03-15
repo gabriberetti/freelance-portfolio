@@ -172,13 +172,13 @@ const Navigation = () => {
           </ul>
         </nav>
 
-        {/* Mobile navigation */}
+        {/* Mobile navigation - Fixed positioning and higher z-index */}
         <div
           id="mobile-menu"
-          className={`fixed inset-0 bg-secondary z-40 flex items-center justify-center transition-all duration-300 md:hidden ${
+          className={`fixed inset-0 bg-secondary z-[100] flex items-center justify-center transition-all duration-300 md:hidden ${
             isMobileMenuOpen 
               ? 'opacity-100 visible' 
-              : 'opacity-0 invisible'
+              : 'opacity-0 invisible pointer-events-none'
           }`}
           role="dialog"
           aria-modal="true"
