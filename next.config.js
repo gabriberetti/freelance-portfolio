@@ -97,18 +97,23 @@ const nextConfig = {
   // Compression
   compress: true,
   
-  // Optimized bundle analysis in production
+  // Optimized bundle analysis in production - with safe fallback
   webpack: (config, { dev, isServer }) => {
-    // Only run bundle analyzer in production build
+    // Only run bundle analyzer in production build and if the module is available
     if (!dev && !isServer) {
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-      config.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'static',
-          reportFilename: './analyze/client.html',
-          openAnalyzer: false,
-        })
-      );
+      try {
+        const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+        config.plugins.push(
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            reportFilename: './analyze/client.html',
+            openAnalyzer: false,
+          })
+        );
+      } catch (error) {
+        // Module not found, skip bundle analyzer
+        console.warn('webpack-bundle-analyzer not found, skipping bundle analysis');
+      }
     }
     
     return config;
