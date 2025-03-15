@@ -26,8 +26,8 @@ const Torus = ({
     meshRef.current.rotation.x = state.clock.getElapsedTime() * speed * speedMultiplier;
     meshRef.current.rotation.y = state.clock.getElapsedTime() * (speed * 1.5) * speedMultiplier;
     
-    // Subtle breathing effect
-    const breathingScale = scale * (1 + Math.sin(state.clock.getElapsedTime() * 0.5) * 0.03);
+    // Subtle breathing effect - simplified for better performance
+    const breathingScale = scale * (1 + Math.sin(state.clock.getElapsedTime() * 0.5) * 0.02);
     meshRef.current.scale.set(breathingScale, breathingScale, breathingScale);
   });
   
@@ -57,8 +57,12 @@ const CameraController = () => {
   const { camera, size } = useThree();
   
   useEffect(() => {
-    // Set initial camera position
-    camera.position.set(0, 0, 30);
+    // Set initial camera position based on screen size
+    if (size.width < 768) {
+      camera.position.set(0, 0, 40); // Further back on mobile
+    } else {
+      camera.position.set(0, 0, 30);
+    }
     
     // Handle window resize
     const handleResize = () => {
@@ -70,10 +74,10 @@ const CameraController = () => {
       }
     };
     
-    handleResize(); // Initial call
+    window.addEventListener('resize', handleResize);
     
     return () => {
-      // Cleanup
+      window.removeEventListener('resize', handleResize);
     };
   }, [camera, size]);
   
@@ -82,22 +86,50 @@ const CameraController = () => {
 
 // Main component
 const TorusBackground = () => {
+  // Use a state to track if we're on mobile
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Check if we're on mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+  
   return (
     <div className="fixed inset-0 z-[-1]">
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 30], fov: 50 }}>
+      <Canvas 
+        dpr={isMobile ? 1 : 2} 
+        camera={{ position: [0, 0, isMobile ? 40 : 30], fov: 50 }}
+        performance={{ min: 0.1 }}
+      >
         <CameraController />
         <color attach="background" args={['transparent']} />
         <fog attach="fog" args={['#ffffff', 20, 40]} />
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1.0} />
         
-        {/* Multiple tori with different parameters for a more complex look */}
+        {/* Main torus - simplified on mobile */}
         <Torus 
           color="#000000" 
           thickness={10} 
           tube={3} 
           speed={0.05}
+          radialSegments={isMobile ? 12 : 16}
+          tubularSegments={isMobile ? 75 : 100}
         />
+        
+        {/* Additional tori - simplified on mobile */}
         <Torus 
           color="#000000" 
           position={[0, 0, -5] as [number, number, number]} 
@@ -105,7 +137,10 @@ const TorusBackground = () => {
           thickness={8} 
           tube={2.5}
           speed={0.08}
+          radialSegments={isMobile ? 8 : 16}
+          tubularSegments={isMobile ? 50 : 100}
         />
+        
         <Torus 
           color="#000000" 
           position={[0, 0, 5] as [number, number, number]} 
@@ -113,6 +148,8 @@ const TorusBackground = () => {
           thickness={12} 
           tube={2}
           speed={0.12}
+          radialSegments={isMobile ? 8 : 16}
+          tubularSegments={isMobile ? 50 : 100}
         />
         
         <OrbitControls 
@@ -120,7 +157,7 @@ const TorusBackground = () => {
           enablePan={false} 
           enableRotate={true}
           autoRotate={true}
-          autoRotateSpeed={0.3}
+          autoRotateSpeed={isMobile ? 0.15 : 0.3} // Slower rotation on mobile
           rotateSpeed={0.5}
         />
       </Canvas>

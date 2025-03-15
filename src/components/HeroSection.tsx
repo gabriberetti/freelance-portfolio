@@ -174,12 +174,12 @@ const HeroSection = () => {
       {/* Large name at the bottom with GSAP-controlled animation */}
       <div 
         ref={nameContainerRef}
-        className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none z-40 -mb-4 md:-mb-12"
+        className="absolute bottom-20 sm:-bottom-8 left-0 w-full overflow-hidden pointer-events-none z-40"
       >
-        <div className="marquee-container py-5 md:py-10 overflow-hidden w-full">
+        <div className="marquee-container py-2 md:py-10 overflow-hidden w-full">
           <h2 
             ref={nameRef}
-            className="text-[12vw] font-normal text-[#1F01B9] whitespace-nowrap leading-[1.2] will-change-transform inline-block"
+            className="text-[10vw] md:text-[12vw] font-normal text-[#1F01B9] whitespace-nowrap leading-[1.2] will-change-transform inline-block"
             style={{ 
               transform: 'scaleY(1.1)', 
               paddingBottom: '0.2em',
